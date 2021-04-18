@@ -179,7 +179,10 @@
 	</footer>
 	<a href="#top" class="smoothup" title="Back to top"><span class="genericon genericon-collapse"></span></a>
 </div>
-
+<script src="js/jquery.js" defer></script>
+<script src="js/plugins.js" defer></script>
+<script src="js/scripts.js" defer></script>
+<script src="js/masonry.pkgd.min.js" defer></script>
 <script src="<?php echo url('/'); ?>/js/jquery.js"></script>
 <script src="<?php echo url('/'); ?>/js/plugins.js"></script>
 <script src="<?php echo url('/'); ?>/js/scripts.js"></script>

@@ -229,6 +229,10 @@
       });
     });
 </script>
+<script src="js/jquery.js" defer></script>
+<script src="js/plugins.js" defer></script>
+<script src="js/scripts.js" defer></script>
+<script src="js/masonry.pkgd.min.js" defer></script>
 <script src="<?php echo url('/'); ?>/js/jquery.js"></script>
 <script src="<?php echo url('/'); ?>/js/plugins.js"></script>
 <script src="<?php echo url('/'); ?>/js/scripts.js"></script>
