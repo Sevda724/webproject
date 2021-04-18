@@ -57,4 +57,5 @@ Route::get('/rameo-and-juliet', function () {
     return view('rameoandjuliet');
 });
 Route::get('/contact-form', [App\Http\Controllers\ContactController::class, 'contactForm'])->name('contact-form');
-Route::post('/contact-form', [App\Http\Controllers\ContactController::class, 'storeContactForm'])->name('contact-form.store');
+Route::post('/contact-form', [App\Http\Controllers\ContactController::class, 
+	'storeContactForm'])->name('contact-form.store');
