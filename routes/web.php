@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LocalizationController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\FileController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::namespace('Auth')->group(function () {
+  Route::get('/login',[App\Http\Controllers\LoginController::class, 'show_login_form'])->name('login');
+  Route::post('/login',[App\Http\Controllers\LoginController::class, 'process_login'])->name('login');
+  Route::get('/register',[App\Http\Controllers\LoginController::class, 'show_signup_form'])->name('register');
+  Route::post('/register',[App\Http\Controllers\LoginController::class, 'process_signup']);
+  Route::post('/logout',[App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
+});
 
 Route::get('/', function () {
     return view('home');
@@ -60,6 +71,20 @@ Route::get('/the-little-prince', function () {
 Route::get('/rameo-and-juliet', function () {
     return view('rameoandjuliet');
 });
+
+Route::get('file', [FileController::class, 'create']); 
+Route::post('file', [FileController::class, 'store']);
+
 Route::get('/contact-form', [App\Http\Controllers\ContactController::class, 'contactForm'])->name('contact-form');
 Route::post('/contact-form', [App\Http\Controllers\ContactController::class, 
 	'storeContactForm'])->name('contact-form.store');
+
+Route::get('/buyforma', [App\Http\Controllers\OrderController::class, 'buyforma'])->name('buyforma');
+Route::post('/buyforma', [App\Http\Controllers\OrderController::class, 
+	'storeOrderForm'])->name('buyforma.store');
+
+Route::get('/{lang}', [LocalizationController::class, 'index']); 
+
+
+
+

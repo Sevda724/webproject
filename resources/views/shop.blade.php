@@ -3,22 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>World books</title>
+<title>{{ __('lang.title') }}</title>
 
  <link rel="stylesheet" type="text/css" href="css/style.css">
- <link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700" type='text/css' media='all'/>
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+ <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700' type='text/css' media='all'/>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
 <style type="text/css">
     .imagestyle{
         width: 30px;
         height: 20px
     }
+</style>
 </style>
 </head>
 <body class="home page page-template page-template-template-portfolio page-template-template-portfolio-php">
@@ -34,7 +32,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02" >
+              <div class="collapse navbar-collapse" id="navbarTogglerDemo02" >
                 <ul class="navbar-nav ml-auto">
                     @php $locale = session()->get('locale'); @endphp
                     <li class="nav-item dropdown">
@@ -42,26 +40,38 @@
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             @switch($locale)
                                 @case('ru')
-                                <img src="<?php echo url('/'); ?>/images/ru.jpg" class = 'imagestyle'> <a> Русский</a>>
+                                <img src="{{asset('images/ru.jpg')}}" class = 'imagestyle'>  Русский
                                 @break
                                 @case('kz')
-                                <img src="<?php echo url('/'); ?>/images/kz.png" class = 'imagestyle'>  Қазақ тілі
+                                <img src="{{asset('images/kz.png')}}" class = 'imagestyle'>  Қазақ тілі
                                 @break
                                 @case('fr')
-                                <img src="<?php echo url('/'); ?>/images/fr.png" class = 'imagestyle'>  Français
+                                <img src="{{asset('images/fr.png')}}" class = 'imagestyle'>  Français
                                 @break
                                 @default
-                                <img src="<?php echo url('/'); ?>/images/en.jpg" class = 'imagestyle'>   <a>English</a>
+                                <img src="{{asset('images/en.png')}}" class = 'imagestyle'>  English
                             @endswitch
                             <span class="caret"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="lang/en"><img src="<?php echo url('/'); ?>/images/en.png" class = 'imagestyle'> English</a>
-                            <a class="dropdown-item" href="lang/bn"><img src="<?php echo url('/'); ?>/images/kz.png" class = 'imagestyle'>Қазақ тілі</a>
-                            <a class="dropdown-item" href="lang/in"><img src="<?php echo url('/'); ?>/images/fr.png" class = 'imagestyle'> Français</a>
-                            <a class="dropdown-item" href="lang/in"><img src="<?php echo url('/'); ?>/images/ru.jpg" class = 'imagestyle'> Русский</a>
+                            <a class="dropdown-item" href="en"><img src="{{asset('images/en.png')}}" class = 'imagestyle'> English</a>
+                            <a class="dropdown-item" href="kz"><img src="{{asset('images/kz.png')}}" class = 'imagestyle'>Қазақ тілі</a>
+                            <a class="dropdown-item" href="fr"><img src="{{asset('images/fr.png')}}" class = 'imagestyle'> Français</a>
+                            <a class="dropdown-item" href="ru"><img src="{{asset('images/ru.jpg')}}" class = 'imagestyle'> Русский</a>
                         </div>
                     </li>
+                    <li class="nav-item menu-items">
+      <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
+        
+        <span class="menu-icon">
+          <i class="mdi mdi-speedometer"></i>
+        </span>
+        <span class="menu-title">Logout</span>
+    </a>    
+    <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+        {{ csrf_field() }}
+    </form>
+    </li> 
                 </ul>
             </div>
         </nav>
@@ -90,38 +100,38 @@
                 <table>
                     <tr>
                         <td><a style="text-decoration: none; color: black" href="around-the-world-in-80-days"><img src="<?php echo url('/'); ?>/images/80days.jpg" style='width: 150px;height: 200px; display: block; margin-left: auto;margin-right: auto;'>
-                        <h4 style="text-align: center">Around the world in 80 days</h4>
-                        <h4 style="text-align: center">1200 tg</h4></a>
+                        <h4 style="text-align: center">{{ __('lang.80daystitle') }}</h4>
+                        <h4 style="text-align: center">1300 {{ __('lang.tg') }}</h4></a>
                         </td>
                         <td><a style="text-decoration: none; color: black" href="the-picture-of-dorian-gray"><img src="<?php echo url('/'); ?>/images/dorian.jpg" style='width: 150px;height: 200px; display: block; margin-left: auto;margin-right: auto;'>
-                        <h4 style="text-align: center">The Picture of Dorian Gray</h4>
-                        <h4 style="text-align: center">1500 tg</h4></a>
+                        <h4 style="text-align: center">{{ __('lang.doriantitle') }}</h4>
+                        <h4 style="text-align: center">1500 {{ __('lang.tg') }}</h4></a>
                         </td>
                         <td><a style="text-decoration: none; color: black" href="the-mysterious-island"><img src="<?php echo url('/'); ?>/images/island.jpg" style='width: 150px;height: 200px; display: block; margin-left: auto;margin-right: auto;'>
-                        <h4 style="text-align: center">The mysterious island</h4>
-                        <h4  style="text-align: center">1400 tg</h4></a>
+                         <h4 style="text-align: center">{{ __('lang.islandtitle') }}</h4>
+                        <h4 style="text-align: center">1700 {{ __('lang.tg') }}</h4></a>
                         </td>
                         <td><a style="text-decoration: none; color: black"  href="the-notebook"><img src="<?php echo url('/'); ?>/images/notebook.jpg" style='width: 150px;height: 200px; display: block; margin-left: auto;margin-right: auto;'>
-                        <h4 style="text-align: center">The notebook</h4>
-                        <h4  style="text-align: center">1300 tg</h4></a>
+                         <h4 style="text-align: center">{{ __('lang.notebooktitle') }}</h4>
+                        <h4 style="text-align: center">2000 {{ __('lang.tg') }}</h4></a>
                         </td>
                     </tr>
                     <tr>
                         <td><a style="text-decoration: none; color: black" href="the-master-and-margarita"><img src="<?php echo url('/'); ?>/images/masterandmargo.jpg" style='width: 150px;height: 200px; display: block; margin-left: auto;margin-right: auto;'>
-                        <h4 style="text-align: center">The master and Margarita</h4>
-                        <h4 style="text-align: center">1200 tg</h4></a>
+                        <h4 style="text-align: center">{{ __('lang.masterandmargotitle') }}</h4>
+                        <h4 style="text-align: center">1800 {{ __('lang.tg') }}</h4></a>
                         </td>
                         <td><a style="text-decoration: none; color: black" href="war-and-peace"><img src="<?php echo url('/'); ?>/images/warandpeace.jpg" style='width: 150px;height: 200px; display: block; margin-left: auto;margin-right: auto;'>
-                        <h4 style="text-align: center">War and peace</h4>
-                        <h4 style="text-align: center">1500 tg</h4></a>
+                        <h4 style="text-align: center">{{ __('lang.warandpeacetitle') }}</h4>
+                        <h4 style="text-align: center">3000 {{ __('lang.tg') }}</h4></a>
                         </td>
                         <td><a style="text-decoration: none; color: black" href="the-little-prince"><img src="<?php echo url('/'); ?>/images/littleprince.jpg" style='width: 150px;height: 200px; display: block; margin-left: auto;margin-right: auto;'>
-                        <h4 style="text-align: center">The Little Prince</h4>
-                        <h4  style="text-align: center">1400 tg</h4></a>
+                        <h4 style="text-align: center">{{ __('lang.littleprincetitle') }}</h4>
+                        <h4 style="text-align: center">2000 {{ __('lang.tg') }}</h4></a>
                         </td>
                         <td><a style="text-decoration: none; color: black" href="rameo-and-juliet"><img src="<?php echo url('/'); ?>/images/rameoandjuliet.jpg" style='width: 150px;height: 200px; display: block; margin-left: auto;margin-right: auto;'>
-                        <h4 style="text-align: center">The notebook</h4>
-                        <h4  style="text-align: center">1300 tg</h4></a>
+                        <h4 style="text-align: center">{{ __('lang.rameoandjuliettitle') }}</h4>
+                        <h4 style="text-align: center">2100 {{ __('lang.tg') }}</h4></a>
                         </td>
                     </tr>
                 </table>
@@ -134,7 +144,7 @@
 	<footer id="colophon" class="site-footer">
 	<div class="container">
 		<div class="site-info">
-			<h1 style="font-family: 'Herr Von Muellerhoff';color: #ccc;font-weight:300;text-align: center;margin-bottom:0;margin-top:0;line-height:1.4;font-size: 46px;">World books</h1>
+			<h1 style="font-family: 'Herr Von Muellerhoff';color: #ccc;font-weight:300;text-align: center;margin-bottom:0;margin-top:0;line-height:1.4;font-size: 46px;">{{ __('lang.title') }}</h1>
 
 		</div>
 	</div>	
@@ -149,6 +159,7 @@
 <script src="<?php echo url('/'); ?>/js/plugins.js"></script>
 <script src="<?php echo url('/'); ?>/js/scripts.js"></script>
 <script src="<?php echo url('/'); ?>/js/masonry.pkgd.min.js"></script>
+<script src="<?php echo url('/'); ?>/js/validate.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

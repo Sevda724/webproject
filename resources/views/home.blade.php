@@ -3,17 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>World books</title>
-
- <link rel="stylesheet" type="text/css" href="css/style.css">
+<title>{{ __('lang.title') }}</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
  <link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700" type='text/css' media='all'/>
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <style type="text/css">
 	.imagestyle{
 		width: 30px;
@@ -42,26 +36,38 @@
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             @switch($locale)
                                 @case('ru')
-                                <img src="<?php echo url('/'); ?>/images/ru.jpg" class = 'imagestyle'> <a> Русский</a>>
+                                <img src="{{asset('images/ru.jpg')}}" class = 'imagestyle'>  Русский
                                 @break
                                 @case('kz')
-                                <img src="<?php echo url('/'); ?>/images/kz.png" class = 'imagestyle'>  Қазақ тілі
+                                <img src="{{asset('images/kz.png')}}" class = 'imagestyle'>  Қазақ тілі
                                 @break
                                 @case('fr')
-                                <img src="<?php echo url('/'); ?>/images/fr.png" class = 'imagestyle'>  Français
+                                <img src="{{asset('images/fr.png')}}" class = 'imagestyle'>  Français
                                 @break
                                 @default
-                                <img src="<?php echo url('/'); ?>/images/en.jpg" class = 'imagestyle'>   <a>English</a>
+                                <img src="{{asset('images/en.png')}}" class = 'imagestyle'>  English
                             @endswitch
                             <span class="caret"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="lang/en"><img src="<?php echo url('/'); ?>/images/en.png" class = 'imagestyle'> English</a>
-                            <a class="dropdown-item" href="lang/bn"><img src="<?php echo url('/'); ?>/images/kz.png" class = 'imagestyle'>Қазақ тілі</a>
-                            <a class="dropdown-item" href="lang/in"><img src="<?php echo url('/'); ?>/images/fr.png" class = 'imagestyle'> Français</a>
-                            <a class="dropdown-item" href="lang/in"><img src="<?php echo url('/'); ?>/images/ru.jpg" class = 'imagestyle'> Русский</a>
+                            <a class="dropdown-item" href="en"><img src="{{asset('images/en.png')}}" class = 'imagestyle'> English</a>
+                            <a class="dropdown-item" href="kz"><img src="{{asset('images/kz.png')}}" class = 'imagestyle'>Қазақ тілі</a>
+                            <a class="dropdown-item" href="fr"><img src="{{asset('images/fr.png')}}" class = 'imagestyle'> Français</a>
+                            <a class="dropdown-item" href="ru"><img src="{{asset('images/ru.jpg')}}" class = 'imagestyle'> Русский</a>
                         </div>
                     </li>
+                   <li class="nav-item menu-items">
+      <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
+        
+        <span class="menu-icon">
+          <i class="mdi mdi-speedometer"></i>
+        </span>
+        <span class="menu-title">Logout</span>
+    </a>    
+    <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+        {{ csrf_field() }}
+    </form>
+    </li> 
                 </ul>
             </div>
         </nav>
@@ -92,19 +98,17 @@
 					<article class="hentry">
 					<header class="entry-header">
 					<div class="entry-thumbnail">
-						<a href="portfolio-item.html"><img src="<?php echo url('/'); ?>/images/drama.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="p1"/></a>
+						<a href="portfolio-item.html"><img  style="height: 900px" src="<?php echo url('/'); ?>/images/drama.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="p1"/></a>
 					</div>
-					<h2 class="entry-title"><a href="portfolio-item.html" rel="bookmark">Drama</a></h2>
-					<a class='portfoliotype' href=''></a>
-					<a class='portfoliotype' href=''></a>
-					<a class='portfoliotype' href=''></a>
+					<h2 class="entry-title"><a href="portfolio-item.html"  rel="bookmark">Drama</a></h2>
+					
 					</header>
 					</article>
 					
 					<article class="hentry">
 					<header class="entry-header">
 					<div class="entry-thumbnail">
-						<a href="portfolio-item.html"><img src="<?php echo url('/'); ?>/images/detective.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="p1"/></a>
+						<a href="portfolio-item.html"><img style="height: 400px" src="<?php echo url('/'); ?>/images/detective.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="p1"/></a>
 					</div>
 					<h2 class="entry-title"><a href="" rel="bookmark">{{ __('lang.detectives') }}</a></h2>
 					<a class='portfoliotype' href=''>{{ __('lang.world') }}</a>
@@ -119,55 +123,34 @@
 						<a href="portfolio-item.html"><img src="<?php echo url('/'); ?>/images/modern.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="p1"/></a>
 					</div>
 					<h2 class="entry-title"><a href="" rel="bookmark">{{ __('lang.classic') }}</a></h2>
-					<a class='portfoliotype' href=''></a>
-					<a class='portfoliotype' href=''></a>
-					<a class='portfoliotype' href=''></a>
+					
 					</header>
 					</article>
 					
 					<article class="hentry">
 					<header class="entry-header">
 					<div class="entry-thumbnail">
-						<a href="portfolio-item.html"><img src="<?php echo url('/'); ?>/images/klassik.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="p1"/></a>
+						<a href="portfolio-item.html"><img style="height: 435px" src="<?php echo url('/'); ?>/images/klassik.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="p1"/></a>
 					</div>
-					<h2 class="entry-title"><a href="" rel="bookmark"></a></h2>
-					<a class='portfoliotype' href=''></a>
-					<a class='portfoliotype' href=''></a>
-					<a class='portfoliotype' href=''></a>
+					<h2 class="entry-title"><a href="" rel="bookmark">{{ __('lang.modern') }}</a></h2>
+					<a class
 					</header>
 					</article>
 					
 					<article class="hentry">
 					<header class="entry-header">
 					<div class="entry-thumbnail">
-						<a href="portfolio-item.html"><img src="http://s3.amazonaws.com/caymandemo/wp-content/uploads/sites/15/2015/09/15223245/p2.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="p1"/></a>
+						<a href="portfolio-item.html"><img src="<?php echo url('/'); ?>/images/children.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="p1"/></a>
 					</div>
-					<h2 class="entry-title"><a href="" rel="bookmark"></a></h2>
-					<a class='portfoliotype' href=''></a>
-					<a class='portfoliotype' href=''></a>
-					<a class='portfoliotype' href=''></a>
+					<h2 class="entry-title"><a href="" rel="bookmark">{{ __('lang.children') }}</a></h2>
+					
 					</header>
 					</article>
 					
-					<article class="hentry">
-					<header class="entry-header">
-					<div class="entry-thumbnail">
-						<a href="portfolio-item.html"><img src="http://s3.amazonaws.com/caymandemo/wp-content/uploads/sites/15/2015/09/15222855/p7.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="p1"/></a>
-					</div>
-					<h2 class="entry-title"><a href="" rel="bookmark"></a></h2>
-					<a class='portfoliotype' href=''></a>
-					<a class='portfoliotype' href=''></a>
-					<a class='portfoliotype' href=''></a>
-					</header>
-					</article>
+				
 					
 				</div>
 				
-				<nav class="pagination">
-				<span class="page-numbers current">1</span>
-				<a class="page-numbers" href="#">2</a>
-				<a class="next page-numbers" href="#">Next »</a>
-				</nav>
 				<br/>
 				</main>
 			</div>
@@ -177,7 +160,7 @@
 	<footer id="colophon" class="site-footer">
 	<div class="container">
 		<div class="site-info">
-			<h1 style="font-family: 'Herr Von Muellerhoff';color: #ccc;font-weight:300;text-align: center;margin-bottom:0;margin-top:0;line-height:1.4;font-size: 46px;">World books</h1>
+			<h1 style="font-family: 'Herr Von Muellerhoff';color: #ccc;font-weight:300;text-align: center;margin-bottom:0;margin-top:0;line-height:1.4;font-size: 46px;">{{ __('lang.title') }}</h1>
 
 		</div>
 	</div>	

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>World books</title>
+<title>{{ __('lang.title') }}</title>
 
  <link rel="stylesheet" type="text/css" href="css/style.css">
  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700' type='text/css' media='all'/>
@@ -32,36 +32,46 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02" >
-                <!-- Right Side Of Navbar -->
+              <div class="collapse navbar-collapse" id="navbarTogglerDemo02" >
                 <ul class="navbar-nav ml-auto">
-                    <!-- Authentication Links -->
                     @php $locale = session()->get('locale'); @endphp
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             @switch($locale)
                                 @case('ru')
-                                <img src="<?php echo url('/'); ?>/images/ru.jpg" class = 'imagestyle'> <a> Русский</a>>
+                                <img src="{{asset('images/ru.jpg')}}" class = 'imagestyle'>  Русский
                                 @break
                                 @case('kz')
-                                <img src="<?php echo url('/'); ?>/images/kz.png" class = 'imagestyle'>  Қазақ тілі
+                                <img src="{{asset('images/kz.png')}}" class = 'imagestyle'>  Қазақ тілі
                                 @break
                                 @case('fr')
-                                <img src="<?php echo url('/'); ?>/images/fr.png" class = 'imagestyle'>  Français
+                                <img src="{{asset('images/fr.png')}}" class = 'imagestyle'>  Français
                                 @break
                                 @default
-                                <img src="<?php echo url('/'); ?>/images/en.jpg" class = 'imagestyle'>   <a>English</a>
+                                <img src="{{asset('images/en.png')}}" class = 'imagestyle'>  English
                             @endswitch
                             <span class="caret"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="lang/en"><img src="<?php echo url('/'); ?>/images/en.png" class = 'imagestyle'> English</a>
-                            <a class="dropdown-item" href="lang/bn"><img src="<?php echo url('/'); ?>/images/kz.png" class = 'imagestyle'>Қазақ тілі</a>
-                            <a class="dropdown-item" href="lang/in"><img src="<?php echo url('/'); ?>/images/fr.png" class = 'imagestyle'> Français</a>
-                            <a class="dropdown-item" href="lang/in"><img src="<?php echo url('/'); ?>/images/ru.jpg" class = 'imagestyle'> Русский</a>
+                            <a class="dropdown-item" href="en"><img src="{{asset('images/en.png')}}" class = 'imagestyle'> English</a>
+                            <a class="dropdown-item" href="kz"><img src="{{asset('images/kz.png')}}" class = 'imagestyle'>Қазақ тілі</a>
+                            <a class="dropdown-item" href="fr"><img src="{{asset('images/fr.png')}}" class = 'imagestyle'> Français</a>
+                            <a class="dropdown-item" href="ru"><img src="{{asset('images/ru.jpg')}}" class = 'imagestyle'> Русский</a>
                         </div>
                     </li>
+                    <li class="nav-item menu-items">
+      <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
+        
+        <span class="menu-icon">
+          <i class="mdi mdi-speedometer"></i>
+        </span>
+        <span class="menu-title">Logout</span>
+    </a>    
+    <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+        {{ csrf_field() }}
+    </form>
+    </li> 
                 </ul>
             </div>
         </nav>

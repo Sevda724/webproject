@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>World books</title>
+<title>{{ __('lang.title') }}</title>
 
  <link rel="stylesheet" type="text/css" href="css/style.css">
  <link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700" type='text/css' media='all'/>
@@ -29,7 +29,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02" >
+              <div class="collapse navbar-collapse" id="navbarTogglerDemo02" >
                 <ul class="navbar-nav ml-auto">
                     @php $locale = session()->get('locale'); @endphp
                     <li class="nav-item dropdown">
@@ -37,26 +37,38 @@
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             @switch($locale)
                                 @case('ru')
-                                <img src="<?php echo url('/'); ?>/images/ru.jpg" class = 'imagestyle'> <a> Русский</a>>
+                                <img src="{{asset('images/ru.jpg')}}" class = 'imagestyle'>  Русский
                                 @break
                                 @case('kz')
-                                <img src="<?php echo url('/'); ?>/images/kz.png" class = 'imagestyle'>  Қазақ тілі
+                                <img src="{{asset('images/kz.png')}}" class = 'imagestyle'>  Қазақ тілі
                                 @break
                                 @case('fr')
-                                <img src="<?php echo url('/'); ?>/images/fr.png" class = 'imagestyle'>  Français
+                                <img src="{{asset('images/fr.png')}}" class = 'imagestyle'>  Français
                                 @break
                                 @default
-                                <img src="<?php echo url('/'); ?>/images/en.jpg" class = 'imagestyle'>   <a>English</a>
+                                <img src="{{asset('images/en.png')}}" class = 'imagestyle'>  English
                             @endswitch
                             <span class="caret"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="lang/en"><img src="<?php echo url('/'); ?>/images/en.png" class = 'imagestyle'> English</a>
-                            <a class="dropdown-item" href="lang/bn"><img src="<?php echo url('/'); ?>/images/kz.png" class = 'imagestyle'>Қазақ тілі</a>
-                            <a class="dropdown-item" href="lang/in"><img src="<?php echo url('/'); ?>/images/fr.png" class = 'imagestyle'> Français</a>
-                            <a class="dropdown-item" href="lang/in"><img src="<?php echo url('/'); ?>/images/ru.jpg" class = 'imagestyle'> Русский</a>
+                            <a class="dropdown-item" href="en"><img src="{{asset('images/en.png')}}" class = 'imagestyle'> English</a>
+                            <a class="dropdown-item" href="kz"><img src="{{asset('images/kz.png')}}" class = 'imagestyle'>Қазақ тілі</a>
+                            <a class="dropdown-item" href="fr"><img src="{{asset('images/fr.png')}}" class = 'imagestyle'> Français</a>
+                            <a class="dropdown-item" href="ru"><img src="{{asset('images/ru.jpg')}}" class = 'imagestyle'> Русский</a>
                         </div>
                     </li>
+                    <li class="nav-item menu-items">
+      <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
+        
+        <span class="menu-icon">
+          <i class="mdi mdi-speedometer"></i>
+        </span>
+        <span class="menu-title">Logout</span>
+    </a>    
+    <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+        {{ csrf_field() }}
+    </form>
+    </li> 
                 </ul>
             </div>
         </nav>
@@ -83,7 +95,7 @@
             <div id="primary" class="content-area column full">
                                     <div class="wpcmsdev-columns">
                         <div class="column column-width-one-half">
-                            <h4>Fill-in form</h4>
+                            <h2>{{ __('lang.fillin') }}</h2>
                             @if (count($errors) > 0)
                             <div class="alert alert-danger">
                                 <strong>Sorry!</strong> There were more problems with your HTML input.<br><br>
@@ -100,21 +112,51 @@
                             {{ session('success') }}
                             </div> 
                             @endif
-                            <form class = "wpcf7"  method="POST" action="{{ route('contact-form.store') }}">
+                            <form class = "wpcf7"  method="POST" action="{{ route('buyforma.store') }}">
                   
                             {{ csrf_field() }}
-                            <div class="form">
-                                <div class="col-md-30">
-                                    <h4>Write your full name:</h4>
+                            <div class="form" style="margin-left: 10px">
+                                <!--<div class="col-md-30">
+                                    <h4>Write book title that you want ti buy. 
+                                    (Ex: Around the<br> World in Eighty Days #125)</h4>                                    
                                     <div class="form-group">
-                                        <input type="text" style="width: 400px; font-size: 14px" name="fullname" class="form-control" placeholder="Full name " value="{{ old('fullname') }}">
-                                        @if ($errors->has('fullname'))
-                                            <span class="text-danger">{{ $errors->first('fullname') }}</span>
+                                        <input type="text" name="bookName" style="width: 400px; font-size: 14px" class="form-control" placeholder="book" value="{{ old('bookName') }}">
+                                        @if ($errors->has('bookName'))
+                                            <span class="text-danger">{{ $errors->first('bookName') }}</span>
+                                        @endif
+                                    </div>
+                                </div>-->
+                                 <div class="col-md-30">
+                                    <h4>{{ __('lang.choosebook') }}</h4>                                    
+                                    <div class="form-group">
+                                <select name="bookName" id="cars" style="width: 400px; font-size: 14px; height: 40px" class="form-control" required>
+                                  <option value="">None</option>
+                                  <option value="Around the World in Eighty Days #0123">{{ __('lang.80daystitle') }} #0123</option>
+                                  <option value="The Picture of Dorian Gray #0147">{{ __('lang.doriantitle') }} #0147</option>
+                                  <option value="The Mysterious Island #0258">{{ __('lang.islandtitle') }} #0258</option>
+                                  <option value="The Notebook #0654">{{ __('lang.notebooktitle') }} #0654</option>
+                                  <option value="The Master and Margarita #0321">{{ __('lang.masterandmargotitle') }} #0321</option>
+                                  <option value="War and Peace #0753">{{ __('lang.warandpeacetitle') }} #0753</option>
+                                  <option value="The Little Prince #0369">{{ __('lang.littleprincetitle') }} #0369</option>
+                                  <option value="Romeo and Juliet #0987">{{ __('lang.rameoandjuliettitle') }} #0987</option>
+                                </select>
+                                @if ($errors->has('bookName'))
+                                            <span class="text-danger">{{ $errors->first('bookName') }}</span>
+                                        @endif
+                                  </div>
+                                </div>
+
+                                <div class="col-md-30">
+                                    <h4>{{ __('lang.fn') }}</h4>
+                                    <div class="form-group">
+                                        <input type="text" style="width: 400px; font-size: 14px" name="fullName" class="form-control" placeholder="Full name " value="{{ old('fullName') }}">
+                                        @if ($errors->has('fullName'))
+                                            <span class="text-danger">{{ $errors->first('fullName') }}</span>
                                         @endif
                                     </div>
                                 </div>
                                 <div class="col-md-30">
-                                    <h4>Write your  email:</h4>
+                                    <h4>{{ __('lang.em') }}</h4>
                                     <div class="form-group">
                                         <input type="text" name="emailForm" style="width: 400px; font-size: 14px" class="form-control" placeholder="Email" value="{{ old('emailForm') }}">
                                         @if ($errors->has('emailForm'))
@@ -124,7 +166,7 @@
                                 </div>
                             
                                 <div class="col-md-30">
-                                    <h4>Write your address:</h4>                                    
+                                    <h4>{{ __('lang.add') }}</h4>                                    
                                     <div class="form-group">
                                         <input type="text" name="address" style="width: 400px; font-size: 14px" class="form-control" placeholder="Adress" value="{{ old('address') }}">
                                         @if ($errors->has('address'))
@@ -133,26 +175,16 @@
                                     </div>
                                 </div>
                                 <div class="col-md-30">
-                                    <h4>Write your telephon number:</h4>                                    
+                                    <h4>{{ __('lang.tel') }}</h4>                                    
                                     <div class="form-group">
-                                        <input type="text" name="telephon" style="width: 400px; font-size: 14px" class="form-control" placeholder="Telephon number" value="{{ old('telephon') }}">
-                                        @if ($errors->has('telephon'))
-                                            <span class="text-danger">{{ $errors->first('telephon') }}</span>
+                                        <input type="text" name="telephone" style="width: 400px; font-size: 14px" class="form-control" placeholder="Telephone number" value="{{ old('telephone') }}">
+                                        @if ($errors->has('telephone'))
+                                            <span class="text-danger">{{ $errors->first('telephone') }}</span>
                                         @endif
                                     </div>
                                 </div>
                                 <div class="col-md-30">
-                                    <h4>Write book title that you want ti buy. 
-                                    (Ex: Around the<br> World in Eighty Days #125)</h4>                                    
-                                    <div class="form-group">
-                                        <input type="text" name="book" style="width: 400px; font-size: 14px" class="form-control" placeholder="book" value="{{ old('book') }}">
-                                        @if ($errors->has('book'))
-                                            <span class="text-danger">{{ $errors->first('book') }}</span>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-md-30">
-                                    <h4>Write count of book:</h4>                                    
+                                    <h4>{{ __('lang.cb') }}</h4>                                    
                                     <div class="form-group">
                                         <input type="text" name="count" style="width: 400px; font-size: 14px" class="form-control" placeholder="count" value="{{ old('count') }}">
                                         @if ($errors->has('count'))
@@ -160,7 +192,19 @@
                                         @endif
                                     </div>
                                 </div>
-                                
+                                <div class="col-md-30">
+                                    <h4>{{ __('lang.zc') }}</h4>                                    
+                                    <div class="form-group">
+                                        <input type="text" name="zipCode" style="width: 400px; font-size: 14px" class="form-control" placeholder="zipCode" value="{{ old('zipCode') }}">
+                                        @if ($errors->has('zipCode'))
+                                            <span class="text-danger">{{ $errors->first('zipCode') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                               
+                            </div>
+                            <div class="form-group text-center">
+                                <input type="submit"  class="btn clearfix btn-submit" value="{{ __('lang.done') }}">
                             </div>
                         </form>
                     </div>
@@ -172,7 +216,7 @@
     <footer id="colophon" class="site-footer">
     <div class="container">
         <div class="site-info">
-            <h1 style="font-family: 'Herr Von Muellerhoff';color: #ccc;font-weight:300;text-align: center;margin-bottom:0;margin-top:0;line-height:1.4;font-size: 46px;">World books</h1>
+            <h1 style="font-family: 'Herr Von Muellerhoff';color: #ccc;font-weight:300;text-align: center;margin-bottom:0;margin-top:0;line-height:1.4;font-size: 46px;">{{ __('lang.title') }}</h1>
 
         </div>
     </div>  

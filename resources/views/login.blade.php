@@ -5,22 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ __('lang.title') }}</title>
 
- <link rel="stylesheet" type="text/css" href="css/style.css">
- <link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700" type='text/css' media='all'/>
+<!--<link rel='stylesheet' href="<?php echo url('/'); ?>/css/style.css" type='text/css' media='all'/>-->
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel='stylesheet' href="https://hostonproject.herokuapp.com/assets/css/style.css" type='text/css' media='all'/>
+<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700" type='text/css' media='all'/>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <style type="text/css">
-    .imagestyle{
-        width: 30px;
-        height: 20px
-    }
+  .imagestyle{
+    width: 30px;
+    height: 20px
+  }
 </style>
 </head>
 <body class="home page page-template page-template-template-portfolio page-template-template-portfolio-php">
 <div id="page">
-    <div class="container">
-        <header id="masthead" class="site-header">
-            <div id="app">
+  <div class="container">
+    <header id="masthead" class="site-header">
+      <div id="app">
     <div style="background-color: white">
         <nav class="navbar navbar-expand-lg navbar-light  container">
            
@@ -29,7 +32,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-              <div class="collapse navbar-collapse" id="navbarTogglerDemo02" >
+                          <div class="collapse navbar-collapse" id="navbarTogglerDemo02" >
                 <ul class="navbar-nav ml-auto">
                     @php $locale = session()->get('locale'); @endphp
                     <li class="nav-item dropdown">
@@ -73,60 +76,46 @@
             </div>
         </nav>
     </div>
-        <div class="site-branding">
-            <h1 class="site-title"><p rel="home">{{ __('lang.title') }}</p></h1>
-            <h2 class="site-description">{{ __('lang.mess') }}</h2>
-        </div>
-        <nav id="site-navigation" class="main-navigation">
-        <button class="menu-toggle">Menu</button>
-        <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
-        <div class="menu-menu-1-container">
-            <ul id="menu-menu-1" class="menu">
-                <li><a href="home">{{ __('lang.home') }}</a></li>
-                <li><a href="aboutus">{{ __('lang.about') }}</a></li>
-                <li><a href="shop">{{ __('lang.shop') }}</a></li>
-                <li><a href="contact-form">{{ __('lang.contact') }}</a></li>
-            </ul>
-
-        </div>
-        </nav>
-        </header>
-        <div id="content" class="site-content">
-            <div id="primary" class="content-area column full">
-                <main id="main" class="site-main">
-                
-                <article class="hentry">
-                <header class="entry-header">
-                <h1 class="entry-title">{{ __('lang.about1')}}</h1> 
-                </header>
-                <!-- .entry-header -->
-
-                <div class="entry-content">
-                <div alt="bg5" ><img  style="width: 250px; height: 300px" class="alignright" src="<?php echo url('/'); ?>/images/notebook.jpg"></canvas></div>
-                <h2>{{ __('lang.notebooktitle')}} #0654</h2>
-                <h3>{{ __('lang.notebookauthor')}}</h3>
-                <h4>{{ __('lang.notebookdes')}}</h4>
-                <h3 style="margin-top: 50px; margin-bottom: 30px">{{ __('lang.amount')}}: 2000 {{ __('lang.tg')}}</h3>
-                <a href="buyform"><button class="btn btn-dark" style="width: 70px" >{{ __('lang.buy')}}</button></a>
-                </div><!-- .entry-content -->
-                </article>
-                </main>
-                <!-- #main -->
+    <div class="site-branding">
+      <h1 class="site-title" style="font-size: 150px"><p rel="home">{{ __('lang.title') }}</p></h1>
+    </div>
+    </header>
+    <!-- #masthead -->
+    <div id="content" class="site-content">
+      <div id="primary" class="content-area column full">
+        <div style="width: 300px; margin-left: 38%">
+        <form class = "wpcf7" method="post" action="{{ route('login') }}">
+         @csrf
+          <div class="form-group">
+            <input type="text" name="name" class="form-control" placeholder="Username" style="font-size: 14px">
             </div>
-            <!-- #primary -->
-        </div>
-</div>
-    <footer id="colophon" class="site-footer">
-    <div class="container">
-        <div class="site-info">
-            <h1 style="font-family: 'Herr Von Muellerhoff';color: #ccc;font-weight:300;text-align: center;margin-bottom:0;margin-top:0;line-height:1.4;font-size: 46px;">{{ __('lang.title') }}</h1>
+            <div class="form-group">
+            <input type="password" name="password" class="form-control" placeholder="Password" style="font-size: 14px">
+            </div>
+          <div class="text-center">
+        <input type="submit" name="" class="btn clearfix btn-submit" placeholder="LOGIN" value="LOGIN"> 
+  </div>
 
-        </div>
-    </div>  
-    </footer>
-    <a href="#top" class="smoothup" title="Back to top"><span class="genericon genericon-collapse"></span></a>
+  <p class="sign-up" style="font-size: 13px">Don't have an Account?<a href="{{ route('register') }}"> Sign Up</a></p>
+</form>
 </div>
+      </div>
+      <!-- #primary -->
+    </div>
+    <!-- #content -->
+  </div>
+  <!-- .container -->
+  <footer id="colophon" class="site-footer">
+  <div class="container">
+    <div class="site-info">
+      <h1 style="font-family: 'Herr Von Muellerhoff';color: #ccc;font-weight:300;text-align: center;margin-bottom:0;margin-top:0;line-height:1.4;font-size: 46px;">{{ __('lang.title') }}</h1>
 
+    </div>
+  </div>  
+  </footer>
+  <a href="#top" class="smoothup" title="Back to top"><span class="genericon genericon-collapse"></span></a>
+</div>
+<!-- #page -->
 <script src="<?php echo url('/'); ?>/js/jquery.js"></script>
 <script src="<?php echo url('/'); ?>/js/plugins.js"></script>
 <script src="<?php echo url('/'); ?>/js/scripts.js"></script>

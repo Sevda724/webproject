@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>World books</title>
+<title>{{ __('lang.title') }}</title>
 
  <link rel="stylesheet" type="text/css" href="css/style.css">
  <link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700" type='text/css' media='all'/>
@@ -29,7 +29,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02" >
+              <div class="collapse navbar-collapse" id="navbarTogglerDemo02" >
                 <ul class="navbar-nav ml-auto">
                     @php $locale = session()->get('locale'); @endphp
                     <li class="nav-item dropdown">
@@ -37,26 +37,38 @@
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             @switch($locale)
                                 @case('ru')
-                                <img src="<?php echo url('/'); ?>/images/ru.jpg" class = 'imagestyle'> <a> Русский</a>>
+                                <img src="{{asset('images/ru.jpg')}}" class = 'imagestyle'>  Русский
                                 @break
                                 @case('kz')
-                                <img src="<?php echo url('/'); ?>/images/kz.png" class = 'imagestyle'>  Қазақ тілі
+                                <img src="{{asset('images/kz.png')}}" class = 'imagestyle'>  Қазақ тілі
                                 @break
                                 @case('fr')
-                                <img src="<?php echo url('/'); ?>/images/fr.png" class = 'imagestyle'>  Français
+                                <img src="{{asset('images/fr.png')}}" class = 'imagestyle'>  Français
                                 @break
                                 @default
-                                <img src="<?php echo url('/'); ?>/images/en.jpg" class = 'imagestyle'>   <a>English</a>
+                                <img src="{{asset('images/en.png')}}" class = 'imagestyle'>  English
                             @endswitch
                             <span class="caret"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="lang/en"><img src="<?php echo url('/'); ?>/images/en.png" class = 'imagestyle'> English</a>
-                            <a class="dropdown-item" href="lang/bn"><img src="<?php echo url('/'); ?>/images/kz.png" class = 'imagestyle'>Қазақ тілі</a>
-                            <a class="dropdown-item" href="lang/in"><img src="<?php echo url('/'); ?>/images/fr.png" class = 'imagestyle'> Français</a>
-                            <a class="dropdown-item" href="lang/in"><img src="<?php echo url('/'); ?>/images/ru.jpg" class = 'imagestyle'> Русский</a>
+                            <a class="dropdown-item" href="en"><img src="{{asset('images/en.png')}}" class = 'imagestyle'> English</a>
+                            <a class="dropdown-item" href="kz"><img src="{{asset('images/kz.png')}}" class = 'imagestyle'>Қазақ тілі</a>
+                            <a class="dropdown-item" href="fr"><img src="{{asset('images/fr.png')}}" class = 'imagestyle'> Français</a>
+                            <a class="dropdown-item" href="ru"><img src="{{asset('images/ru.jpg')}}" class = 'imagestyle'> Русский</a>
                         </div>
                     </li>
+                    <li class="nav-item menu-items">
+      <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
+        
+        <span class="menu-icon">
+          <i class="mdi mdi-speedometer"></i>
+        </span>
+        <span class="menu-title">Logout</span>
+    </a>    
+    <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+        {{ csrf_field() }}
+    </form>
+    </li> 
                 </ul>
             </div>
         </nav>
@@ -91,11 +103,11 @@
 
                 <div class="entry-content">
                 <div alt="bg5" ><img  style="width: 250px; height: 300px" class="alignright" src="<?php echo url('/'); ?>/images/littleprince.jpg"></canvas></div>
-                <h2>The Little Prince #0321</h2>
-                <h3>by Antoine de Saint-Exupéry</h3>
-                <h4>Few stories are as widely read and as universally cherished by children and adults alike as The Little Prince. Richard Howard's translation of the beloved classic beautifully reflects Saint-Exupéry's unique and gifted style. Howard, an acclaimed poet and one of the preeminent translators of our time, has excelled in bringing the English text as close as possible to the French, in language, style, and most important, spirit. The artwork in this edition has been restored to match in detail and in color Saint-Exupéry's original artwork. Combining Richard Howard's translation with restored original art, this definitive English-language edition of The Little Prince will capture the hearts of readers of all ages. </h4>
-                <h3 style="margin-top: 50px; margin-bottom: 30px">Amount: 1200 tg</h3>
-                <a href="buyform"><button class="btn btn-dark" style="width: 70px">BUY</button></a>
+                <h2>{{ __('lang.littleprincetitle')}} #0369</h2>
+                <h3>{{ __('lang.littleprinceauthor')}}</h3>
+                <h4>{{ __('lang.littleprincedes')}}</h4>
+                <h3 style="margin-top: 50px; margin-bottom: 30px">{{ __('lang.amount')}}: 2000 {{ __('lang.tg')}}</h3>
+                <a href="buyform"><button class="btn btn-dark" style="width: 70px" >{{ __('lang.buy')}}</button></a>
                 </div><!-- .entry-content -->
                 </article>
                 </main>
@@ -107,7 +119,7 @@
     <footer id="colophon" class="site-footer">
     <div class="container">
         <div class="site-info">
-            <h1 style="font-family: 'Herr Von Muellerhoff';color: #ccc;font-weight:300;text-align: center;margin-bottom:0;margin-top:0;line-height:1.4;font-size: 46px;">World books</h1>
+            <h1 style="font-family: 'Herr Von Muellerhoff';color: #ccc;font-weight:300;text-align: center;margin-bottom:0;margin-top:0;line-height:1.4;font-size: 46px;">{{ __('lang.title') }}</h1>
 
         </div>
     </div>  

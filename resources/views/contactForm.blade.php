@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>World books</title>
+<title>{{ __('lang.title') }}</title>
 
  <link rel="stylesheet" type="text/css" href="css/style.css">
  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700' type='text/css' media='all'/>
@@ -31,36 +31,46 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02" >
-                <!-- Right Side Of Navbar -->
+              <div class="collapse navbar-collapse" id="navbarTogglerDemo02" >
                 <ul class="navbar-nav ml-auto">
-                    <!-- Authentication Links -->
                     @php $locale = session()->get('locale'); @endphp
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             @switch($locale)
                                 @case('ru')
-                                <img src="<?php echo url('/'); ?>/images/ru.jpg" class = 'imagestyle'> <a> Русский</a>>
+                                <img src="{{asset('images/ru.jpg')}}" class = 'imagestyle'>  Русский
                                 @break
                                 @case('kz')
-                                <img src="<?php echo url('/'); ?>/images/kz.png" class = 'imagestyle'>  Қазақ тілі
+                                <img src="{{asset('images/kz.png')}}" class = 'imagestyle'>  Қазақ тілі
                                 @break
                                 @case('fr')
-                                <img src="<?php echo url('/'); ?>/images/fr.png" class = 'imagestyle'>  Français
+                                <img src="{{asset('images/fr.png')}}" class = 'imagestyle'>  Français
                                 @break
                                 @default
-                                <img src="<?php echo url('/'); ?>/images/en.jpg" class = 'imagestyle'>   <a>English</a>
+                                <img src="{{asset('images/en.png')}}" class = 'imagestyle'>  English
                             @endswitch
                             <span class="caret"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="lang/en"><img src="<?php echo url('/'); ?>/images/en.png" class = 'imagestyle'> English</a>
-                            <a class="dropdown-item" href="lang/bn"><img src="<?php echo url('/'); ?>/images/kz.png" class = 'imagestyle'>Қазақ тілі</a>
-                            <a class="dropdown-item" href="lang/in"><img src="<?php echo url('/'); ?>/images/fr.png" class = 'imagestyle'> Français</a>
-                            <a class="dropdown-item" href="lang/in"><img src="<?php echo url('/'); ?>/images/ru.jpg" class = 'imagestyle'> Русский</a>
+                            <a class="dropdown-item" href="en"><img src="{{asset('images/en.png')}}" class = 'imagestyle'> English</a>
+                            <a class="dropdown-item" href="kz"><img src="{{asset('images/kz.png')}}" class = 'imagestyle'>Қазақ тілі</a>
+                            <a class="dropdown-item" href="fr"><img src="{{asset('images/fr.png')}}" class = 'imagestyle'> Français</a>
+                            <a class="dropdown-item" href="ru"><img src="{{asset('images/ru.jpg')}}" class = 'imagestyle'> Русский</a>
                         </div>
                     </li>
+                    <li class="nav-item menu-items">
+      <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
+        
+        <span class="menu-icon">
+          <i class="mdi mdi-speedometer"></i>
+        </span>
+        <span class="menu-title">Logout</span>
+    </a>    
+    <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+        {{ csrf_field() }}
+    </form>
+    </li> 
                 </ul>
             </div>
         </nav>
@@ -89,7 +99,7 @@
 				<main id="main" class="site-main">
 				<article id="post-39" class="post-39 page type-page status-publish hentry">
 				<header class="entry-header">
-				<h1 class="entry-title">Contact</h1>
+				<h1 class="entry-title">{{ __('lang.contact') }}</h1>
 				</header>
 				<!-- .entry-header -->
 				<div class="entry-content">
@@ -105,7 +115,8 @@
 						
 					<div class="wpcmsdev-columns">
 						<div class="column column-width-one-half">
-							<h4>Quick Contact</h4>
+							<div style="width: 400px">
+                            <h4>{{ __('lang.mail') }}</h4>
 							@if (count($errors) > 0)
 							<div class="alert alert-danger">
     							<strong>Sorry!</strong> There were more problems with your HTML input.<br><br>
@@ -128,7 +139,7 @@
                             <div class="form">
                                 <div class="col-md-30">
                                     <div class="form-group">
-                                        <input type="text" style="width: 400px; font-size: 14px" name="name" class="form-control" placeholder="Name" value="{{ old('name') }}">
+                                        <input type="text" style="width: 400px; font-size: 14px" name="name" class="form-control" placeholder="{{ __('lang.name') }}" value="{{ old('name') }}">
                                         @if ($errors->has('name'))
                                             <span class="text-danger">{{ $errors->first('name') }}</span>
                                         @endif
@@ -154,58 +165,39 @@
                             </div>
                    
                             <div class="form-group text-center">
-                                <input type="submit"  class="btn clearfix btn-submit" value="Send">
+                                <input type="submit"  class="btn clearfix btn-submit" value="{{ __('lang.send') }}">
 
                             </div>
-                        </form>												
-							<!--<form class="wpcf7" method="post" action="{{url('file')}}" id="contactform" enctype="multipart/form-data">
+                        </form>							
+							<form class="wpcf7" method="post" action="{{url('file')}}" id="contactform" enctype="multipart/form-data">
 								@csrf
+                                <h4>{{ __('lang.upmess') }}</h4>
 									<div class="input-group hdtuto control-group lst increment" style="margin-top:20px">
-      									<input type="file" name="filenames[]" class="myfrm form-control">
+      									<input type="file" name="filenames[]" class="myfrm form-control" style="width: 300px; font-size: 14px">
       									<div class="input-group-btn"> 
-        									<button class="btn btn-success" type="button"><i class="fldemo glyphicon glyphicon-plus"></i>Add</button>
+        									<button class="btn clearfix btn-submit" type="button" style="width: 50px;height: 40px;" ><i class="fldemo glyphicon glyphicon-plus"></i>+</button>
       									</div>
     								</div>
     							<div class="clone hide">
       							<div class="hdtuto control-group lst input-group" style="margin-top:10px">
-        							<input type="file" name="filenames[]" class="myfrm form-control">
+        							<input type="file" name="filenames[]" class="myfrm form-control" style="width: 300px; font-size: 14px" >
         							<div class="input-group-btn"> 
-          								<button class="btn btn-danger" type="button"><i class="fldemo glyphicon glyphicon-remove"></i> Remove</button>
+          								<button class="btn clearfix btn-submit" type="button" style="width: 50px;height: 40px;"><i class="fldemo glyphicon glyphicon-remove"></i>-</button>
         							</div>
       							</div>
     							</div>
-    								<input type="submit" class="btn btn-dark" value="Upload">
+    								<input type="submit" class="btn btn-dark" value="{{ __('lang.upload') }}" style="margin-top: 20px">
 
     								
-							</form>-->
-							<div class="done">								
-								Your message has been sent. Thank you!
-							</div>
-							
+							</form>
 						</div>
-						<!--<div class="column column-width-one-half">
-							<h4>Find Us: (888) 252 389 3571</h4>
-							<p>
-								If you want to hire me or have any feedback or questions about our service in general, please send us a message by completing our enquiry form. It’s best to call though, someone we’ll always be there for you.
-							</p>
-							<p>
-								Monday – Friday: 9am to 5pm<br>
-								Saturday: 10am to 2pm<br>
-								Sunday: Closed
-							</p>
-						</div>-->
-					</div>
+					</div></div>   
 				</div>
-				<!-- .entry-content -->
 				</article>
 				</main>
-				<!-- #main -->
 			</div>
-			<!-- #primary -->
 		</div>
-		<!-- #content -->
 	</div>
-	<!-- .container -->
 	<footer id="colophon" class="site-footer">
 	<div class="container">
 		<div class="site-info">
@@ -238,8 +230,8 @@
 <script src="<?php echo url('/'); ?>/js/scripts.js"></script>
 <script src="<?php echo url('/'); ?>/js/masonry.pkgd.min.js"></script>
 <script src="<?php echo url('/'); ?>/js/validate.js"></script>
-<!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>-->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>
